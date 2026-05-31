@@ -18,33 +18,30 @@ if true then
 	-- loop for each class with a given style
 	for _, className in ipairs(GNUI.Theme.getClassNames()) do
 		-- create a column container for each widget
-		local variantColumn = screen:parse({
+		local variantColumn = classColumns:parse({
 			layout = "VERTICAL",
 			sizing = { "FIT", "FIT" },
 			minSize = vec(80, 0),
 			gap = 5,
 		})
-		classColumns:addChild(variantColumn)
 
 		-- create the class header
-		local classHeader = screen:parse({
+		local classHeader = variantColumn:parse({
 			sizing = { "FILL", "FIT" },
 			minSize = vec(0, 15),
 			text = className,
 			style = "opaque",
 		})
-		variantColumn:addChild(classHeader)
 
 		-- loop for each class variant
 		for _, variantName in ipairs(GNUI.Theme.getVariantNames(className)) do
 			-- create that given widget with the given variant
-			local widget = screen:parse({
+			local widget = variantColumn:parse({
 				type = className,
 				sizing = { "FILL", "FIT" },
 				style = variantName,
 				text = variantName,
 			})
-			variantColumn:addChild(widget)
 
 			--if className == "button" then
 			--	widget.PRESSED:register(function ()
@@ -54,7 +51,6 @@ if true then
 		end
 	end
 	classColumns:setPos(5, 5)
-	screen:addChild(classColumns)
 end
 
 
